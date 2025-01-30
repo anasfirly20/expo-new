@@ -1,7 +1,7 @@
 import MenuApi from "@/src/api/routes/menu";
 import { RootState } from "@/src/store";
 import { setStatus, Status, setMenuData } from "@/src/store/slices/menuSlice";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,6 +11,18 @@ export const useHome = () => {
   const { data: menuData, status } = useSelector(
     (state: RootState) => state.menu
   );
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchQuery = useCallback((value: string) => {
+    setSearchQuery(value);
+  }, []);
+
+  const filteredRecipes =
+    (menuData &&
+      menuData.recipes.filter((recipe) =>
+        recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )) ??
+    [];
 
   const fetchMenu = async () => {
     try {
@@ -33,5 +45,9 @@ export const useHome = () => {
     menuData,
     status,
     colorScheme,
+    searchQuery,
+    setSearchQuery,
+    handleSearchQuery,
+    filteredRecipes,
   };
 };

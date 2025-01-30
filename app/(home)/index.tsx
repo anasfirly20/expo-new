@@ -1,9 +1,10 @@
+import React, { useState } from "react";
 import {
   Text,
   FlatList,
   SafeAreaView,
   Image,
-  Pressable,
+  TextInput,
   Dimensions,
 } from "react-native";
 import { View } from "@/src/components/View";
@@ -18,16 +19,21 @@ import { cn } from "@/utils/cn";
 import { Link } from "expo-router";
 
 const { width } = Dimensions.get("window");
-const CARD_WIDTH = (width - 48) / 2; // 48 = padding (16 * 2) + gap (16)
+const CARD_WIDTH = (width - 48) / 2;
 
 export default function HomeScreen() {
-  const { menuData, status, colorScheme } = useHome();
+  const {
+    menuData,
+    status,
+    colorScheme,
+    filteredRecipes,
+    searchQuery,
+    handleSearchQuery,
+  } = useHome();
   const isDarkMode = colorScheme === "dark";
 
   if (status === Status.LOADING) return <Loading />;
-
   if (status === Status.ERROR) return <Error />;
-
   if (!menuData?.recipes) return <Error />;
 
   const renderItem = ({ item }: { item: TGETMenu["recipes"][number] }) => (
@@ -117,8 +123,18 @@ export default function HomeScreen() {
             </Text>
           </View>
 
+          <TextInput
+            placeholder="Search by name"
+            value={searchQuery}
+            onChangeText={handleSearchQuery}
+            className={cn(
+              "mb-4 p-2 rounded-lg",
+              isDarkMode ? "bg-zinc-700 text-white" : "bg-white text-black"
+            )}
+          />
+
           <FlatList
-            data={menuData.recipes}
+            data={filteredRecipes}
             keyExtractor={(item) => item.id.toString()}
             renderItem={renderItem}
             numColumns={2}
