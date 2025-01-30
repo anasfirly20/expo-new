@@ -1,28 +1,43 @@
 import { StyleSheet, Text, FlatList, SafeAreaView } from "react-native";
-
 import { View } from "@/src/components/View";
-import { useQuery } from "@tanstack/react-query";
 import MenuApi from "@/src/api/routes/menu";
-import { TGETMenu } from "@/src/api/types";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Error } from "@/src/components/Error";
 import { Loading } from "@/src/components/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/src/store";
+import { setMenuData, setStatus, Status } from "@/src/store/slices/menuSlice";
+import { useEffect } from "react";
 
 export default function HomeScreen() {
-  const {
-    data: menu,
-    isFetching,
-    error,
-  } = useQuery<TGETMenu>({
-    queryKey: ["menu"],
-    queryFn: MenuApi.getMenu,
-  });
+  const dispatch = useDispatch();
+  const { data: menuData, status } = useSelector(
+    (state: RootState) => state.menu
+  );
 
-  if (isFetching) return <Loading />;
+  const fetchMenu = async () => {
+    try {
+      dispatch(setStatus(Status.LOADING));
+      const data = await MenuApi.getMenu();
+      dispatch(setMenuData(data));
+      dispatch(setStatus(Status.SUCCESS));
+    } catch (error: any) {
+      dispatch(setStatus(Status.ERROR));
+    }
+  };
 
-  if (error) return <Error />;
+  useEffect(() => {
+    if (!menuData?.recipes) {
+      console.log("FETCH API");
+      fetchMenu();
+    }
+  }, []);
 
-  if (!menu?.recipes) return <Error />;
+  if (status === Status.LOADING) return <Loading />;
+
+  if (status === Status.ERROR) return <Error />;
+
+  if (!menuData?.recipes) return <Error />;
 
   return (
     <GestureHandlerRootView>
@@ -32,7 +47,7 @@ export default function HomeScreen() {
           <Text className="">asdsa</Text>
           <Text className="text-2xl font-semibold">Menu</Text>
           <FlatList
-            data={menu.recipes}
+            data={menuData.recipes}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <View className="mt-5">
