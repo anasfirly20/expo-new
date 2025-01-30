@@ -44,17 +44,18 @@ export default function HomeScreen() {
           id: item.id,
         },
       }}
+      className="mb-4"
     >
-      <View className="mb-4" style={{ width: CARD_WIDTH }}>
+      <View style={{ width: CARD_WIDTH }}>
         <View
           className={cn(
-            "rounded-3xl p-4 shadow-sm",
+            "rounded-xl p-4 shadow-sm",
             isDarkMode ? "bg-zinc-800" : "bg-white"
           )}
         >
           <Image
             source={{ uri: item.image }}
-            className="w-full h-32 rounded-2xl mb-3"
+            className="w-full h-32 rounded-lg mb-3"
             resizeMode="cover"
           />
           <Text
@@ -66,8 +67,8 @@ export default function HomeScreen() {
           >
             {item.name}
           </Text>
-          <View row className="justify-between items-center">
-            <View row className="items-center space-x-1">
+          <View row gap="5" alignItems="center" justifyContent="space-between">
+            <View row gap="2" alignItems="center">
               <Ionicons
                 name="time-outline"
                 size={14}
@@ -82,7 +83,7 @@ export default function HomeScreen() {
                 {item.cookTimeMinutes} Min
               </Text>
             </View>
-            <View row className="items-center space-x-1">
+            <View row gap="2" alignItems="center">
               <Ionicons
                 name="flame-outline"
                 size={14}
@@ -94,7 +95,7 @@ export default function HomeScreen() {
                   isDarkMode ? "text-zinc-400" : "text-zinc-600"
                 )}
               >
-                {item.difficulty} Lvl
+                {item.difficulty}
               </Text>
             </View>
           </View>
@@ -104,7 +105,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView>
       <SafeAreaView
         className={cn(
           "flex-1",
