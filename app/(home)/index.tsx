@@ -15,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TGETMenu } from "@/src/api/types";
 import { useHome } from "./functions";
 import { cn } from "@/utils/cn";
+import { Link } from "expo-router";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 48) / 2; // 48 = padding (16 * 2) + gap (16)
@@ -30,7 +31,14 @@ export default function HomeScreen() {
   if (!menuData?.recipes) return <Error />;
 
   const renderItem = ({ item }: { item: TGETMenu["recipes"][number] }) => (
-    <Pressable>
+    <Link
+      href={{
+        pathname: "/(home)/[id]",
+        params: {
+          id: item.id,
+        },
+      }}
+    >
       <View className="mb-4" style={{ width: CARD_WIDTH }}>
         <View
           className={cn(
@@ -86,7 +94,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
-    </Pressable>
+    </Link>
   );
 
   return (
