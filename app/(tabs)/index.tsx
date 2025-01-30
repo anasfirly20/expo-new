@@ -1,31 +1,50 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, FlatList, SafeAreaView } from "react-native";
 
 import { View } from "@/src/components/View";
+import { useQuery } from "@tanstack/react-query";
+import MenuApi from "@/src/api/routes/menu";
+import { TGETMenu } from "@/src/api/types";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Error } from "@/src/components/Error";
+import { Loading } from "@/src/components/Loading";
 
 export default function HomeScreen() {
+  const {
+    data: menu,
+    isFetching,
+    error,
+  } = useQuery<TGETMenu>({
+    queryKey: ["menu"],
+    queryFn: MenuApi.getMenu,
+  });
+
+  if (isFetching) return <Loading />;
+
+  if (error) return <Error />;
+
+  if (!menu?.recipes) return <Error />;
+
   return (
-    <View className="px-4">
-      <Text className="text-2xl font-semibold text-white">Hey, Margaret</Text>
-      <Text className="text-white">asdsa</Text>
-    </View>
+    <GestureHandlerRootView>
+      <SafeAreaView>
+        <View className="px-3">
+          <Text className="text-2xl font-semibold">Hey, Margaret</Text>
+          <Text className="">asdsa</Text>
+          <Text className="text-2xl font-semibold">Menu</Text>
+          <FlatList
+            data={menu.recipes}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View className="mt-5">
+                <Text className="text-xl font-semibold">{item.name}</Text>
+                <Text className="text-sm text-gray-500">{item.difficulty}</Text>
+              </View>
+            )}
+            ListFooterComponent={<View />}
+            ListFooterComponentStyle={{ height: 200 }}
+          />
+        </View>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});
