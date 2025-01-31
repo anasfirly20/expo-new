@@ -16,5 +16,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-, "src/api"  ]
+, "src/api", "app/(home)/[id]"  ]
 }

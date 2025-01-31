@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { Providers } from "./providers";
+import Providers from "./providers";
 
 import "react-native-reanimated";
 import "../global.css";

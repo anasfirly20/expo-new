@@ -12,7 +12,7 @@ type ProvidersTypes = {
   children: React.ReactNode;
 };
 
-export const Providers = (props: ProvidersTypes) => {
+const Providers = (props: ProvidersTypes) => {
   const { children } = props;
 
   const colorScheme = useColorScheme();
@@ -25,3 +25,7 @@ export const Providers = (props: ProvidersTypes) => {
     </ReduxProvider>
   );
 };
+
+Providers.displayName = "Providers";
+
+export default Providers;
