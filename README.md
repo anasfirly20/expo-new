@@ -13,6 +13,7 @@ A mobile application built with Expo and React Native that allows users to brows
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
 - Expo CLI (`npm install -g expo-cli`)
@@ -22,14 +23,14 @@ A mobile application built with Expo and React Native that allows users to brows
 ### Development Setup
 
 1. Clone the repository
-```git clone <repository-url>```
-```cd expo-new```
+   `git clone <repository-url>`
+   `cd expo-new`
 
 2. Install dependencies
-``` npm install or yarn install```
+   ` npm install or yarn install`
 
-3. Start the development server 
-```npx expo start```
+3. Start the development server
+   `npx expo start`
 
 ## Tech Stack
 
@@ -40,3 +41,17 @@ A mobile application built with Expo and React Native that allows users to brows
 - **Redux Toolkit:** v2.5.1
 - **NativeWind:** v4.1.23
 - **Expo Router:** v4.0.17
+
+## Screenshots
+
+### iOS Views
+<p align="center">
+  <img src="./src/assets/screenshots/ios-1.png" width="300" alt="iOS Home Screen" style="margin-right: 20px"/>
+  <img src="./src/assets/screenshots/ios-2.png" width="300" alt="iOS Detail Screen"/>
+</p>
+
+### Android Views
+<p align="center">
+  <img src="./src/assets/screenshots/android-1.png" width="300" alt="Android Home Screen" style="margin-right: 20px"/>
+  <img src="./src/assets/screenshots/android-2.png" width="300" alt="Android Detail Screen"/>
+</p>
