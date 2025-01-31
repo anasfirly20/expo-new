@@ -1,4 +1,10 @@
-import { Text, FlatList, SafeAreaView, TextInput } from "react-native";
+import {
+  Text,
+  FlatList,
+  SafeAreaView,
+  TextInput,
+  Platform,
+} from "react-native";
 import { View } from "@/src/components/View";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Error } from "@/src/components/Error";
@@ -8,6 +14,7 @@ import { useHome } from "./functions";
 import { cn } from "@/utils/cn";
 import { Empty } from "@/src/components/Empty";
 import { RecipeCard } from "@/src/components/Home/RecipeCard";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const {
@@ -19,6 +26,7 @@ export default function HomeScreen() {
     handleSearchQuery,
   } = useHome();
   const isDarkMode = colorScheme === "dark";
+  const insets = useSafeAreaInsets();
 
   if (status === Status.LOADING) return <Loading />;
   if (status === Status.ERROR) return <Error />;
@@ -31,6 +39,9 @@ export default function HomeScreen() {
           "flex-1",
           colorScheme === "dark" ? "bg-black" : "bg-gray-50"
         )}
+        style={{
+          paddingTop: Platform.OS === "android" ? insets.top : 0,
+        }}
       >
         <View className="px-3 flex-1">
           <View className="mb-4">

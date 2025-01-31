@@ -1,13 +1,22 @@
 import React from "react";
-import { Text, View, Image, SafeAreaView, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Platform,
+} from "react-native";
 import { Loading } from "@/src/components/Loading";
 import { Error } from "@/src/components/Error";
 import { Ionicons } from "@expo/vector-icons";
 import { useRecipeDetail } from "./functions";
 import { Empty } from "@/src/components/Empty";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function RecipeDetail() {
   const { recipe, status } = useRecipeDetail();
+  const insets = useSafeAreaInsets();
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error />;
@@ -27,7 +36,12 @@ export default function RecipeDetail() {
   return (
     <SafeAreaView className="flex-1">
       <ScrollView>
-        <View className="relative">
+        <View
+          className="relative"
+          style={{
+            paddingTop: Platform.OS === "android" ? insets.top : 0,
+          }}
+        >
           <Image
             source={{ uri: recipe.image }}
             className="w-full h-64"
