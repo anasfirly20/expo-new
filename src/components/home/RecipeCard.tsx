@@ -22,19 +22,27 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ item, isDarkMode }) => (
         id: item.id,
       },
     }}
-    className="mb-4"
+    className="mb-4 border-2"
   >
-    <View style={{ width: CARD_WIDTH }}>
+    <View
+      style={{
+        width: CARD_WIDTH,
+        borderWidth: 1,
+        borderRadius: 10,
+        overflow: "hidden",
+      }}
+    >
       <View
         className={cn(
-          "rounded-xl p-4 shadow-sm",
+          "rounded-xl p-4",
           isDarkMode ? "bg-zinc-800" : "bg-white"
         )}
       >
         <Image
           source={{ uri: item.image }}
-          className="w-full h-32 rounded-lg mb-3"
-          resizeMode="cover"
+          style={{ width: 150, height: 150 }}
+          className="rounded-lg"
+          resizeMode="contain"
         />
         <Text
           className={cn(

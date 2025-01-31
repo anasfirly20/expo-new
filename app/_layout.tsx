@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Providers from "./providers";
 
 import "react-native-reanimated";
-import "../global.css";
+import "@/global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
