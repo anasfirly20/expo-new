@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Text,
   FlatList,
@@ -18,6 +17,7 @@ import { useHome } from "./functions";
 import { cn } from "@/utils/cn";
 import { Link } from "expo-router";
 import { Empty } from "@/src/components/Empty";
+import { RecipeCard } from "@/src/components/home/RecipeCard";
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 48) / 2;
 
@@ -129,7 +129,7 @@ export default function HomeScreen() {
             value={searchQuery}
             onChangeText={handleSearchQuery}
             className={cn(
-              "mb-4 p-2 rounded-lg",
+              "mb-4 p-3 rounded-lg border border-zinc-300",
               isDarkMode ? "bg-zinc-700 text-white" : "bg-white text-black"
             )}
           />
@@ -137,7 +137,9 @@ export default function HomeScreen() {
           <FlatList
             data={filteredRecipes}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={renderItem}
+            renderItem={({ item }) => (
+              <RecipeCard item={item} isDarkMode={isDarkMode} />
+            )}
             numColumns={2}
             columnWrapperStyle={{ justifyContent: "space-between" }}
             showsVerticalScrollIndicator={false}
