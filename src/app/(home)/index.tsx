@@ -11,21 +11,13 @@ import { Error } from "@/src/components/Error";
 import { Loading } from "@/src/components/Loading";
 import { Status } from "@/src/store/slices/menuSlice";
 import { useHome } from "./functions";
-import { cn } from "@/utils/cn";
 import { Empty } from "@/src/components/Empty";
 import { RecipeCard } from "@/src/components/Home/RecipeCard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const {
-    menuData,
-    status,
-    colorScheme,
-    filteredRecipes,
-    searchQuery,
-    handleSearchQuery,
-  } = useHome();
-  const isDarkMode = colorScheme === "dark";
+  const { menuData, status, filteredRecipes, searchQuery, handleSearchQuery } =
+    useHome();
   const insets = useSafeAreaInsets();
 
   if (status === Status.LOADING) return <Loading />;
@@ -35,22 +27,14 @@ export default function HomeScreen() {
   return (
     <GestureHandlerRootView>
       <SafeAreaView
-        className={cn(
-          "flex-1",
-          colorScheme === "dark" ? "bg-black" : "bg-gray-50"
-        )}
+        className="flex-1 bg-gray-5"
         style={{
           paddingTop: Platform.OS === "android" ? insets.top : 0,
         }}
       >
         <View className="px-3 flex-1">
           <View className="mb-4">
-            <Text
-              className={cn(
-                "text-xl font-semibold mb-1",
-                colorScheme === "dark" ? "text-white" : "text-zinc-900"
-              )}
-            >
+            <Text className="text-xl font-semibold mb-1 text-zinc-900">
               Recipe List
             </Text>
           </View>
@@ -59,18 +43,13 @@ export default function HomeScreen() {
             placeholder="Search by name"
             value={searchQuery}
             onChangeText={handleSearchQuery}
-            className={cn(
-              "mb-4 p-3 rounded-lg border border-zinc-300",
-              isDarkMode ? "bg-zinc-700 text-white" : "bg-white text-black"
-            )}
+            className="mb-4 p-3 rounded-lg border border-zinc-300 bg-white text-black"
           />
 
           <FlatList
             data={filteredRecipes}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <RecipeCard item={item} isDarkMode={isDarkMode} />
-            )}
+            renderItem={({ item }) => <RecipeCard item={item} />}
             numColumns={2}
             columnWrapperStyle={{ justifyContent: "space-between" }}
             showsVerticalScrollIndicator={false}

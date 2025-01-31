@@ -1,3 +1,4 @@
+// reference: https://github.com/expo/router/issues/41#issuecomment-2569739770
 //index.js
 import { registerRootComponent } from "expo";
 import { ExpoRoot } from "expo-router";

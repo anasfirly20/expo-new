@@ -1,4 +1,3 @@
-import axios from "axios";
 import { TGETMenu } from "@/src/api/types";
 import api from "../api";
 

@@ -2,11 +2,9 @@ import MenuApi from "@/src/api/routes/menu";
 import { RootState } from "@/src/store";
 import { setStatus, Status, setMenuData } from "@/src/store/slices/menuSlice";
 import { useCallback, useEffect, useState } from "react";
-import { useColorScheme } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export const useHome = () => {
-  const colorScheme = useColorScheme();
   const dispatch = useDispatch();
   const { data: menuData, status } = useSelector(
     (state: RootState) => state.menu
@@ -44,7 +42,6 @@ export const useHome = () => {
   return {
     menuData,
     status,
-    colorScheme,
     searchQuery,
     setSearchQuery,
     handleSearchQuery,
