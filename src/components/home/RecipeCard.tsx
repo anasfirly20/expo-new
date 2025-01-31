@@ -6,7 +6,7 @@ import { Link } from "expo-router";
 import { View } from "@/components/View";
 
 const { width } = Dimensions.get("window");
-const CARD_WIDTH = (width - 48) / 2;
+const CARD_WIDTH = (width - 35) / 2;
 
 interface RecipeCardProps {
   item: TGETMenu["recipes"][number];
@@ -33,7 +33,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ item }) => (
       <View className="rounded-xl p-4 bg-white">
         <Image
           source={{ uri: item.image }}
-          style={{ width: 150, height: 150 }}
+          style={{ width: 157, height: 155 }}
           className="rounded-lg"
           resizeMode="contain"
         />
