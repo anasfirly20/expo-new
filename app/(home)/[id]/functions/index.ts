@@ -6,9 +6,7 @@ import { useState, useEffect } from "react";
 export const useRecipeDetail = () => {
   const searchParams = useLocalSearchParams();
   const { id } = searchParams;
-  const [recipe, setRecipe] = useState<TGETMenu["recipes"][number] | null>(
-    null
-  );
+  const [recipe, setRecipe] = useState<TGETMenu["recipes"][number]>();
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "success"
   );

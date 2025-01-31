@@ -17,7 +17,7 @@ import { TGETMenu } from "@/src/api/types";
 import { useHome } from "./functions";
 import { cn } from "@/utils/cn";
 import { Link } from "expo-router";
-
+import { Empty } from "@/src/components/Empty";
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 48) / 2;
 
@@ -34,7 +34,7 @@ export default function HomeScreen() {
 
   if (status === Status.LOADING) return <Loading />;
   if (status === Status.ERROR) return <Error />;
-  if (!menuData?.recipes) return <Error />;
+  if (!menuData?.recipes) return <Empty />;
 
   const renderItem = ({ item }: { item: TGETMenu["recipes"][number] }) => (
     <Link

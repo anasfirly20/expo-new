@@ -4,13 +4,14 @@ import { Loading } from "@/src/components/Loading";
 import { Error } from "@/src/components/Error";
 import { Ionicons } from "@expo/vector-icons";
 import { useRecipeDetail } from "./functions";
+import { Empty } from "@/src/components/Empty";
 
 export default function RecipeDetail() {
   const { recipe, status } = useRecipeDetail();
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error />;
-  if (!recipe) return <Error />;
+  if (!recipe) return <Empty />;
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
